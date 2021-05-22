@@ -1,22 +1,16 @@
+import {forwardRef} from 'react';
 import PropTypes from 'prop-types';
 
-function Form({
-  setInputValue,
-  timeRequest,
-  setTimeRequest,
-  setPassword,
-  setActiveQuantity,
-  setSwitchView
-}) {
+const Form = forwardRef((props, ref) => {
+  
+  const {timeRequest,
+    setTimeRequest,
+    setPassword } = props;
 
   const hendlerEvents = e => {
     e.preventDefault();
-    setPassword('nextPage');
-    setInputValue(e.target.value);
+    setPassword('search');
     setTimeRequest(true);
-    e.target.value = '';
-    setActiveQuantity(false);
-    setSwitchView(false)
     e.target.blur()
   }
 
@@ -27,8 +21,8 @@ function Form({
           className="uk-search-icon uk-search-icon-flip"
           uk-spinner="ratio: 0.6"
         ></span>}
-        <input
-
+      <input
+          ref={ref}
           className="uk-search-input"
           type="search"
           placeholder="Search..."
@@ -41,15 +35,13 @@ function Form({
       />
     </form>      
   );
-}
+})
 
 Form.propTypes = {
   setInputValue: PropTypes.func,
   timeRequest: PropTypes.bool,
   setTimeRequest: PropTypes.func,
-  setPassword: PropTypes.func,
-  setActiveQuantity: PropTypes.func,
-  setSwitchView: PropTypes.func,
+  setPassword: PropTypes.func
 }
 
 export default Form;

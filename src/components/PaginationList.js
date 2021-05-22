@@ -5,10 +5,8 @@ function PaginationList({
   amountPaginationItems,
   currentPage,
   setCurrentPage,
-  hiddenElements,
-  setPassword
+  hiddenElements
 }) {
-
   const [line, setLine] = useState([]);
   
   useEffect(() => {
@@ -57,10 +55,8 @@ function PaginationList({
               <a href={element} onClick={(e) => {
                 e.preventDefault();
                 if (Number.isInteger(+e.target.innerText)) {
-                  setPassword('nextPage')
                   setCurrentPage(element);
                 } else {
-                  setPassword('nextPage')
                   jumpOver(index);
                 }
               }}>{element}</a>
@@ -85,8 +81,7 @@ PaginationList.propTypes = {
   amountPaginationItems:PropTypes.number,
   currentPage:PropTypes.number,
   setCurrentPage: PropTypes.func,
-  hiddenElements: PropTypes.bool,
-  setPassword: PropTypes.func
+  hiddenElements: PropTypes.bool
 }
 
 export default PaginationList;

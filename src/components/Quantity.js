@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 
-function Quantity({ setAmountPosts, setCurrentPage, setPassword, activeQuantity }) {
-  
-  const newClassName = activeQuantity ? '' : 'uk-invisible';
+function Quantity({
+  setAmountPosts,
+  setCurrentPage
+}) {
   
   return (
     <select
-      className={`${newClassName} uk-select uk-width-small uk-margin-left`}
+      className=' uk-select uk-width-small uk-margin-left'
       onChange={(e) => {
         setAmountPosts(e.target.value);
-        setPassword('nextPage');
         setCurrentPage(1);
       }}>
       <option value="6">6</option>
@@ -21,9 +21,7 @@ function Quantity({ setAmountPosts, setCurrentPage, setPassword, activeQuantity 
 
 Quantity.propTypes = {
   setAmountPosts: PropTypes.func,
-  setCurrentPage: PropTypes.func,
-  setPassword: PropTypes.func,
-  activeQuantity: PropTypes.bool
+  setCurrentPage: PropTypes.func
 }
 
 export default Quantity;

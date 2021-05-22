@@ -7,12 +7,9 @@ function Nav({
   linkPost,
   setLinkPosts,
   setPassword,
-  setActiveQuantity,
-  setSearchMessage,
   likedPosts,
   setLikedPosts,
-  setIdElementDeleted,
-  setSwitchView
+  setIdElementDeleted
 }) {
 
   return (
@@ -26,9 +23,6 @@ function Nav({
                 setPassword('nextPage');
                 setLinkPosts(!linkPost);
                 setCurrentPage(1);
-                setActiveQuantity(true);
-                setSearchMessage('')
-                setSwitchView(true)
             }}>Posts</a>
           </li>
           {/* <li>
@@ -49,10 +43,7 @@ Nav.propTypes = {
   setCurrentPage: PropTypes.func,
   linkPost:PropTypes.bool,
   setLinkPosts:PropTypes.func,
-  setPassword: PropTypes.func,
-  setActiveQuantity:PropTypes.func,
-  setSearchMessage:PropTypes.func,
-  setSwitchView:PropTypes.func,
+  setPassword: PropTypes.func
 }
 
 export default Nav;

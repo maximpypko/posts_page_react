@@ -63,9 +63,9 @@ function ListItem({
         </div>}
         <div>
           <div className="uk-card-body">
-            <h3 className={`uk-card-title uk-margin-remove-bottom uk-flex uk-flex-middle uk-flex-between uk-flex-column  uk-height-small uk-overflow-hidden ${activeLineClass}`}>
+            <h3 className={`uk-flex-row-reverse uk-height-small uk-overflow-hidden uk-card-title uk-margin-remove-bottom uk-flex uk-flex-middle uk-flex-between ${activeLineClass}`}>
               <button
-                className={`uk-icon-link ${classButtonHeart}`}
+                className={`uk-width-1-1 uk-icon-link ${classButtonHeart}`}
                 uk-icon="heart"
                 onClick={e => {
                   hendlerClickButtonHeart(e)

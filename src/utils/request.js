@@ -21,21 +21,28 @@ const getRequest = async (page = 1, limit = 6, order = 'asc') => {
   }
 }
 
-const searchRequest = async (text) => {
+const searchRequest = async (text, amountPosts, currentPage, order='asc') => {
   if (text) {
-    const response = await fetch(`${url}?q=${text}`)
-      .then(response => response.json())
-    return response;
+    const response = await fetch(`${url}?_page=${currentPage}&_limit=${+amountPosts}&q=${text}&_sort=id&_order=${order}`)
+    const total = response.headers.get('X-Total-Count');
+    const data = await response.json();
+    const meta = {};
+    if (total) meta.total = total;
+  console.log(data);
+    return {
+      data,
+      total
+    }
   }
 }
 
-const rangeRequest = async (currentPage, amountPosts) => {
+const rangeRequest = async (text='', amountPosts, currentPage, order='asc') => {
 
   if (currentPage && amountPosts) {
-    const response = await fetch(`${url}?_page=${currentPage}&_limit=${amountPosts}`,
-    )
+    const response = await fetch(`${url}?_page=${currentPage}&_limit=${amountPosts}&q=${text}&_sort=id&_order=${order}`)
       .then(response => response.json())
-    return response;
+    
+    return await response;
   }
 }
 

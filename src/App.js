@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   getRequest,
   searchRequest,
@@ -9,6 +9,7 @@ import ServicePanel from "./containers/ServicePanel";
 import ListPosts from "./containers/ListPosts";
 import ButtonLoadMore from "./components/ButtonLoadMore";
 import PaginationList from "./components/PaginationList";
+import Warning from "./components/Warning";
 
 export default function App() {
   const [posts, setPosts] = useState([]);
@@ -17,21 +18,21 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [order, setOrder] = useState('asc');
   const [view, setView] = useState(true);
-  const [inputValue, setInputValue] = useState('');
   const [hiddenElements, setHiddenElements] = useState(false);
   const [linkPost, setLinkPosts] = useState(false);
   const [timeRequest, setTimeRequest] = useState(false);
   const [range, setRange] = useState(false);
   const [password, setPassword] = useState('nextPage')
-  const [activeQuantity, setActiveQuantity] = useState(true)
-  const [searchMessage, setSearchMessage] = useState('');
-  const [switchView, setSwitchView] = useState(true);
   const [likedPosts, setLikedPosts] = useState([])
   const [idElementDeleted, setIdElementDeleted] = useState(null)
 
+  const formValue = useRef()
+
   useEffect(() => {
     if (password === 'nextPage') {
+
       getRequest(currentPage, amountPosts, order).then(response => {
+        formValue.current.value = '';
         setHiddenElements(false);
         setPosts(response.data);
         const newAmountPaginationItems = Math.ceil(response.total / amountPosts);
@@ -41,32 +42,35 @@ export default function App() {
   }, [amountPosts, order, currentPage, password, linkPost]);
   
   useEffect(() => {
+    if (password === 'search')
+      
+      searchRequest(formValue.current.value, amountPosts, currentPage, order).then(response => {
 
-    searchRequest(inputValue).then(data => {
-      if (data) {
-        if (data.length === 0) {
-          setSearchMessage(<h1>text not found</h1>);
+      if (response) {
+        if (response.data.length === 0) {
+          setPosts(false)
           setTimeRequest(false);
         }
-        if (data.length > 0) {
-          setHiddenElements(true);
-          setPosts(data);
-          setInputValue('');
-          setSwitchView(true);
-          setSearchMessage('')
+        if (response.data.length > 0) {
+          setHiddenElements(false);
+          setPosts(response.data);
+          const newAmountPaginationItems = Math.ceil(response.total / amountPosts);
+          setAmountPaginationCount(newAmountPaginationItems);
         }
       }
     })
-  }, [amountPosts, inputValue]);
+  }, [amountPaginationItems, amountPosts, currentPage, order, password]);
+  
 
   useEffect(() => {
     if (password === 'loadMore' && range) {
       setRange(false);
-      rangeRequest(currentPage, amountPosts).then(response => {
+      rangeRequest(formValue.current.value,amountPosts, currentPage, order ).then(response => {
+        setPassword('')
         setPosts([...posts, ...response]);
       })
     }
-  }, [amountPosts, currentPage, password, posts, range, idElementDeleted]);
+  }, [amountPosts, currentPage, order, password, posts, range]);
 
   return (
     <>
@@ -76,39 +80,35 @@ export default function App() {
           linkPost={linkPost}
           setLinkPosts={setLinkPosts}
           setPassword={setPassword}
-          setActiveQuantity={setActiveQuantity}
-          setSearchMessage={setSearchMessage}
           likedPosts={likedPosts}
           setLikedPosts={setLikedPosts}
           setIdElementDeleted={setIdElementDeleted}
-          setSwitchView={setSwitchView}
         />
         <div className="uk-section">
           <div className="uk-container">
             <ServicePanel
-              setInputValue={setInputValue}
               timeRequest={timeRequest}
               setTimeRequest={setTimeRequest}
               setPassword={setPassword}
-              setActiveQuantity={setActiveQuantity}
               setOrder={setOrder}
               setAmountPosts={setAmountPosts}
               setCurrentPage={setCurrentPage}
-              activeQuantity={activeQuantity}
               view={view}
               setView={setView}
-              switchView={switchView}
-              setSwitchView={setSwitchView}
+              ref={formValue}
             />
-            {searchMessage || <ListPosts
-              posts={posts}
-              view={view}
-              setTimeRequest={setTimeRequest}
-              likedPosts={likedPosts}
-              setLikedPosts={setLikedPosts}
-              idElementDeleted={idElementDeleted}
-            />}
-            {!switchView ||
+            {posts ?
+              <ListPosts
+                posts={posts}
+                view={view}
+                setTimeRequest={setTimeRequest}
+                likedPosts={likedPosts}
+                setLikedPosts={setLikedPosts}
+                idElementDeleted={idElementDeleted}
+              /> :
+              <Warning />
+            }
+            {!posts ||
               amountPaginationItems === currentPage ||
               <ButtonLoadMore
               setCurrentPage={setCurrentPage}
@@ -118,14 +118,17 @@ export default function App() {
               setTimeRequest={setTimeRequest}
               setRange={setRange}
               setPassword={setPassword}
-            />}
-            {!switchView || <PaginationList
+              />
+            }
+            {!posts ||
+              <PaginationList
               amountPaginationItems={amountPaginationItems}
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
               hiddenElements={hiddenElements}
               setPassword={setPassword}
-            />}
+              />
+            }
           </div>
         </div>
       </main>

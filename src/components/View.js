@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
 
-function View({ view, setView, switchView }) {
+function View({ view, setView}) {
   
   let defaultView, otherView;
   view ? defaultView = 'uk-active' : otherView = 'uk-active';
-  const newClassName = switchView ? '' : 'uk-invisible';
 
   return (
-    <div className={`uk-button-group uk-margin-left ${newClassName}`}>
+    <div className='uk-button-group uk-margin-left'>
       <button
         className={`uk-button uk-button-default ${defaultView}`}
         onClick={() => setView(true)}>
@@ -24,8 +23,7 @@ function View({ view, setView, switchView }) {
 
 View.propTypes = {
   view: PropTypes.bool,
-  setView: PropTypes.func,
-  switchView:PropTypes.bool
+  setView: PropTypes.func
 }
 
 export default View;

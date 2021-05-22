@@ -1,14 +1,11 @@
 import PropTypes from 'prop-types';
 
-function Order({ setOrder, setPassword, switchView }) {
+function Order({ setOrder }) {
   
-  const newClassName = switchView ? '' : 'uk-invisible';
-
   return (
     <select
-      className={`uk-select uk-width-small uk-margin-auto-left ${newClassName}`}
+      className={`uk-select uk-width-small uk-margin-auto-left`}
       onChange={(e) => {
-        setPassword('nextPage')
         setOrder(e.target.value)
       }
       }>
@@ -19,9 +16,7 @@ function Order({ setOrder, setPassword, switchView }) {
 }
 
 Order.propTypes = {
-  setOrder: PropTypes.func,
-  setPassword: PropTypes.func,
-  switchView: PropTypes.bool
+  setOrder: PropTypes.func
 }
 
 export default Order;

@@ -1,24 +1,21 @@
+import {forwardRef} from 'react';
 import Form from "../components/Form";
 import Order from "../components/Order";
 import Quantity from "../components/Quantity";
 import View from "../components/View";
 
-export default function ServicePanel({
-  setInputValue,
-  timeRequest,
-  setTimeRequest,
-  setPassword,
-  setActiveQuantity,
-  setOrder,
-  setAmountPosts,
-  setCurrentPage,
-  activeQuantity,
-  view,
-  setView,
-  switchView,
-  setSwitchView
-}) {
-  
+const ServicePanel = forwardRef((props, ref) => {
+ 
+  const {setInputValue,
+    timeRequest,
+    setTimeRequest,
+    setPassword,
+    setOrder,
+    setAmountPosts,
+    setCurrentPage,
+    view,
+    setView} = props;
+   
   return (
     <div className="uk-margin-medium-bottom uk-flex">
       <Form
@@ -26,23 +23,23 @@ export default function ServicePanel({
         timeRequest={timeRequest}
         setTimeRequest={setTimeRequest}
         setPassword={setPassword}
-        setActiveQuantity={setActiveQuantity}
-        setSwitchView={setSwitchView}/>
+        ref={ref}
+      />
       <Order
         setOrder={setOrder}
         setPassword={setPassword}
-        switchView={switchView}
       />
       <Quantity
         setAmountPosts={setAmountPosts}
         setCurrentPage={setCurrentPage}
         setPassword={setPassword}
-        activeQuantity={activeQuantity}/>
+      />
       <View
         view={view}
         setView={setView}
-        switchView={switchView}
       />
     </div>    
   );
-}
+})
+
+export default ServicePanel;

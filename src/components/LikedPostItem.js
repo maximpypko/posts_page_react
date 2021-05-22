@@ -1,6 +1,11 @@
 import PropTypes from 'prop-types';
 
-function LikedPostItem({ post, likedPosts, setLikedPosts, setIdElementDeleted }) {
+function LikedPostItem({
+    post,
+    likedPosts,
+    setLikedPosts,
+    setIdElementDeleted
+}) {
     
     const hendlerClickButton = () => {
         const newLikedPosts = likedPosts.filter(el => el.id !== post.id)
