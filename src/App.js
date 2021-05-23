@@ -43,7 +43,7 @@ export default function App() {
   
   useEffect(() => {
     if (password === 'search')
-      
+      console.log('vvv');
       searchRequest(formValue.current.value, amountPosts, currentPage, order).then(response => {
 
       if (response) {
@@ -53,13 +53,14 @@ export default function App() {
         }
         if (response.data.length > 0) {
           setHiddenElements(false);
+          setTimeRequest(false);
           setPosts(response.data);
           const newAmountPaginationItems = Math.ceil(response.total / amountPosts);
           setAmountPaginationCount(newAmountPaginationItems);
         }
       }
     })
-  }, [amountPaginationItems, amountPosts, currentPage, order, password]);
+  }, [amountPaginationItems, amountPosts, currentPage, order, password, timeRequest]);
   
 
   useEffect(() => {

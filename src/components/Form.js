@@ -7,13 +7,24 @@ const Form = forwardRef((props, ref) => {
     setTimeRequest,
     setPassword } = props;
 
-  const hendlerEvents = e => {
+  const debounce = (fn, ms) => {
+    let timeout;
+    return function () {
+      const fnCall = () => { fn.apply(this, arguments) }
+      clearTimeout(timeout);
+      timeout = setTimeout(fnCall, ms)
+    };
+  }
+
+  function onChange(e) {
     e.preventDefault();
     setPassword('search');
     setTimeRequest(true);
     e.target.blur()
-  }
+  } 
 
+  const hendlerChange = debounce(onChange, 1000)
+  
   return (
     <form className="uk-search uk-search-default uk-width-medium uk-margin-remove uk-margin-right">
         <span uk-search-icon='true'></span>
@@ -22,15 +33,12 @@ const Form = forwardRef((props, ref) => {
           uk-spinner="ratio: 0.6"
         ></span>}
       <input
-          ref={ref}
-          className="uk-search-input"
-          type="search"
-          placeholder="Search..."
-          onKeyDown={e => {
-            if (e.key === 'Enter' && e.target.value.trim()) hendlerEvents(e)
-          }}
-          onBlur={e => {
-            if (e.target.value.trim()) hendlerEvents(e)
+        ref={ref}
+        className="uk-search-input"
+        type="search"
+        placeholder="Search..."
+        onChange={e => {
+          hendlerChange(e)
         }}
       />
     </form>      
