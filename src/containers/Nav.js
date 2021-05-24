@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ButtonLike from '../components/ButtonLike';
+import { IdRequest } from '../utils/enums';
 
 function Nav({
   setCurrentPage,
@@ -20,7 +21,7 @@ function Nav({
             <a href="/"
               onClick={(e) => {
                 e.preventDefault();
-                setPassword('nextPage');
+                setPassword(IdRequest.normal);
                 setLinkPosts(!linkPost);
                 setCurrentPage(1);
             }}>Posts</a>

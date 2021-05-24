@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { IdRequest } from '../utils/enums';
 
 function ButtonLoadMore({
   setCurrentPage,
@@ -16,7 +17,7 @@ function ButtonLoadMore({
         <button className="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom"
           onClick={(e) => {
             e.stopPropagation()
-            setPassword('loadMore')
+            setPassword(IdRequest.buttonLoadMore)
             setCurrentPage(currentPage + 1)
             setRange(true)
             setTimeRequest(true)

@@ -10,6 +10,7 @@ import ButtonLoadMore from "./components/ButtonLoadMore";
 import PaginationList from "./components/PaginationList";
 import GridViewWithoutPictures from './containers/GridViewWithoutPictures';
 import GridViewWithPictures from './containers/GridViewWithPictures';
+import { IdRequest } from './utils/enums';
 
 export default function App() {
   const [posts, setPosts] = useState([]);
@@ -22,14 +23,14 @@ export default function App() {
   const [linkPost, setLinkPosts] = useState(false);
   const [timeRequest, setTimeRequest] = useState(false);
   const [range, setRange] = useState(false);
-  const [password, setPassword] = useState('nextPage')
+  const [password, setPassword] = useState(IdRequest.normal)
   const [likedPosts, setLikedPosts] = useState([])
   const [idElementDeleted, setIdElementDeleted] = useState(null)
 
   const formValue = useRef()
 
   useEffect(() => {
-    if (password === 'nextPage') {
+    if (password === IdRequest.normal) {
 
       getRequest(currentPage, amountPosts, order).then(response => {
         formValue.current.value = '';
@@ -42,7 +43,7 @@ export default function App() {
   }, [amountPosts, order, currentPage, password, linkPost]);
   
   useEffect(() => {
-    if (password === 'search')
+    if (password === IdRequest.search)
       console.log('vvv');
       searchRequest(formValue.current.value, amountPosts, currentPage, order).then(response => {
 
@@ -64,7 +65,7 @@ export default function App() {
   
 
   useEffect(() => {
-    if (password === 'loadMore' && range) {
+    if (password === IdRequest.buttonLoadMore && range) {
       setRange(false);
       rangeRequest(formValue.current.value,amountPosts, currentPage, order ).then(response => {
         setPassword('')
@@ -131,7 +132,6 @@ export default function App() {
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
               hiddenElements={hiddenElements}
-              setPassword={setPassword}
               />
             }
           </div>

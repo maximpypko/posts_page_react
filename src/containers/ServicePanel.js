@@ -25,14 +25,11 @@ const ServicePanel = forwardRef((props, ref) => {
         setPassword={setPassword}
         ref={ref}
       />
-      <Order
-        setOrder={setOrder}
-        setPassword={setPassword}
+      <Order setOrder={setOrder}
       />
       <Quantity
         setAmountPosts={setAmountPosts}
         setCurrentPage={setCurrentPage}
-        setPassword={setPassword}
       />
       <View
         view={view}

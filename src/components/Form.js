@@ -1,4 +1,5 @@
-import {forwardRef} from 'react';
+import { forwardRef } from 'react';
+import { IdRequest } from '../utils/enums';
 import PropTypes from 'prop-types';
 
 const Form = forwardRef((props, ref) => {
@@ -18,7 +19,7 @@ const Form = forwardRef((props, ref) => {
 
   function onChange(e) {
     e.preventDefault();
-    setPassword('search');
+    setPassword(IdRequest.search);
     setTimeRequest(true);
     e.target.blur()
   } 
