@@ -123,6 +123,7 @@ export default function App() {
               timeRequest={timeRequest}
               setTimeRequest={setTimeRequest}
               setRange={setRange}
+              identifier={identifier}
               setIdentifier={setIdentifier}
               />
             }
@@ -133,6 +134,7 @@ export default function App() {
               setCurrentPage={setCurrentPage}
               hiddenElements={hiddenElements}
               setIdentifier={setIdentifier}
+              ref={formValue}
               />
             }
           </div>
