@@ -6,7 +6,7 @@ const Form = forwardRef((props, ref) => {
   
   const {timeRequest,
     setTimeRequest,
-    setPassword } = props;
+    setIdentifier } = props;
 
   const debounce = (fn, ms) => {
     let timeout;
@@ -19,7 +19,7 @@ const Form = forwardRef((props, ref) => {
 
   function onChange(e) {
     e.preventDefault();
-    setPassword(IdRequest.search);
+    setIdentifier(IdRequest.search);
     setTimeRequest(true);
     e.target.blur()
   } 
@@ -50,7 +50,7 @@ Form.propTypes = {
   setInputValue: PropTypes.func,
   timeRequest: PropTypes.bool,
   setTimeRequest: PropTypes.func,
-  setPassword: PropTypes.func
+  setIdentifier: PropTypes.func
 }
 
 export default Form;

@@ -23,14 +23,14 @@ export default function App() {
   const [linkPost, setLinkPosts] = useState(false);
   const [timeRequest, setTimeRequest] = useState(false);
   const [range, setRange] = useState(false);
-  const [password, setPassword] = useState(IdRequest.normal)
+  const [identifier, setIdentifier] = useState(IdRequest.normal)
   const [likedPosts, setLikedPosts] = useState([])
   const [idElementDeleted, setIdElementDeleted] = useState(null)
 
   const formValue = useRef()
 
   useEffect(() => {
-    if (password === IdRequest.normal) {
+    if (identifier === IdRequest.normal) {
 
       getRequest(currentPage, amountPosts, order).then(response => {
         formValue.current.value = '';
@@ -40,11 +40,11 @@ export default function App() {
         setAmountPaginationCount(newAmountPaginationItems);
       })
     }
-  }, [amountPosts, order, currentPage, password, linkPost]);
+  }, [amountPosts, order, currentPage, identifier, linkPost]);
   
   useEffect(() => {
-    if (password === IdRequest.search)
-      console.log('vvv');
+    if (identifier === IdRequest.search)
+
       searchRequest(formValue.current.value, amountPosts, currentPage, order).then(response => {
 
       if (response) {
@@ -61,18 +61,18 @@ export default function App() {
         }
       }
     })
-  }, [amountPaginationItems, amountPosts, currentPage, order, password, timeRequest]);
+  }, [amountPaginationItems, amountPosts, currentPage, order, identifier, timeRequest]);
   
-
   useEffect(() => {
-    if (password === IdRequest.buttonLoadMore && range) {
+    if (identifier === IdRequest.buttonLoadMore && range) {
+
       setRange(false);
       rangeRequest(formValue.current.value,amountPosts, currentPage, order ).then(response => {
-        setPassword('')
+        setIdentifier('')
         setPosts([...posts, ...response]);
       })
     }
-  }, [amountPosts, currentPage, order, password, posts, range]);
+  }, [amountPosts, currentPage, order, identifier, posts, range]);
 
   return (
     <>
@@ -81,7 +81,7 @@ export default function App() {
           setCurrentPage={setCurrentPage}
           linkPost={linkPost}
           setLinkPosts={setLinkPosts}
-          setPassword={setPassword}
+          setIdentifier={setIdentifier}
           likedPosts={likedPosts}
           setLikedPosts={setLikedPosts}
           setIdElementDeleted={setIdElementDeleted}
@@ -91,7 +91,7 @@ export default function App() {
             <ServicePanel
               timeRequest={timeRequest}
               setTimeRequest={setTimeRequest}
-              setPassword={setPassword}
+              setIdentifier={setIdentifier}
               setOrder={setOrder}
               setAmountPosts={setAmountPosts}
               setCurrentPage={setCurrentPage}
@@ -123,7 +123,7 @@ export default function App() {
               timeRequest={timeRequest}
               setTimeRequest={setTimeRequest}
               setRange={setRange}
-              setPassword={setPassword}
+              setIdentifier={setIdentifier}
               />
             }
             {!posts ||
@@ -132,6 +132,7 @@ export default function App() {
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
               hiddenElements={hiddenElements}
+              setIdentifier={setIdentifier}
               />
             }
           </div>

@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from "react";
+import { IdRequest } from '../utils/enums';
 
 function PaginationList({
   amountPaginationItems,
   currentPage,
   setCurrentPage,
-  hiddenElements
+  hiddenElements,
+  setIdentifier
 }) {
   const [line, setLine] = useState([]);
   
@@ -44,6 +46,7 @@ function PaginationList({
           <a href="/" onClick={(e) => {
             e.preventDefault();
             setCurrentPage((prev) => prev === 1 ? prev : prev - 1);
+            setIdentifier(IdRequest.normal)
           }}>
             <span uk-pagination-previous='true'></span>
           </a>
@@ -56,6 +59,7 @@ function PaginationList({
                 e.preventDefault();
                 if (Number.isInteger(+e.target.innerText)) {
                   setCurrentPage(element);
+                  setIdentifier(IdRequest.normal)
                 } else {
                   jumpOver(index);
                 }
@@ -68,6 +72,7 @@ function PaginationList({
           <a href="/" onClick={(e) => {
             e.preventDefault()
             setCurrentPage((prev) => prev === currentPage.length ? prev : prev + 1);
+            setIdentifier(IdRequest.normal)
           }}>
             <span uk-pagination-next='true'></span>
           </a>
@@ -81,7 +86,8 @@ PaginationList.propTypes = {
   amountPaginationItems:PropTypes.number,
   currentPage:PropTypes.number,
   setCurrentPage: PropTypes.func,
-  hiddenElements: PropTypes.bool
+  hiddenElements: PropTypes.bool,
+  setIdentifier: PropTypes.func
 }
 
 export default PaginationList;

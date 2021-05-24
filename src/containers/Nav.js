@@ -7,7 +7,7 @@ function Nav({
   setCurrentPage,
   linkPost,
   setLinkPosts,
-  setPassword,
+  setIdentifier,
   likedPosts,
   setLikedPosts,
   setIdElementDeleted
@@ -21,7 +21,7 @@ function Nav({
             <a href="/"
               onClick={(e) => {
                 e.preventDefault();
-                setPassword(IdRequest.normal);
+                setIdentifier(IdRequest.normal);
                 setLinkPosts(!linkPost);
                 setCurrentPage(1);
             }}>Posts</a>
@@ -44,7 +44,7 @@ Nav.propTypes = {
   setCurrentPage: PropTypes.func,
   linkPost:PropTypes.bool,
   setLinkPosts:PropTypes.func,
-  setPassword: PropTypes.func
+  setIdentifier: PropTypes.func
 }
 
 export default Nav;

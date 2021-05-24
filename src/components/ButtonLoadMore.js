@@ -8,7 +8,7 @@ function ButtonLoadMore({
   timeRequest,
   setTimeRequest,
   setRange,
-  setPassword
+  setIdentifier
 }) {
   
   return (
@@ -17,7 +17,8 @@ function ButtonLoadMore({
         <button className="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom"
           onClick={(e) => {
             e.stopPropagation()
-            setPassword(IdRequest.buttonLoadMore)
+            e.preventDefault()
+            setIdentifier(IdRequest.buttonLoadMore)
             setCurrentPage(currentPage + 1)
             setRange(true)
             setTimeRequest(true)
@@ -38,7 +39,7 @@ ButtonLoadMore.propTypes = {
   timeRequest: PropTypes.bool,
   setTimeRequest: PropTypes.func,
   setRange: PropTypes.func,
-  setPassword: PropTypes.func,
+  setIdentifier: PropTypes.func,
 }
 
 export default ButtonLoadMore;

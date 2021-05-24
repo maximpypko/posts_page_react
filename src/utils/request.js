@@ -28,7 +28,6 @@ const searchRequest = async (text, amountPosts, currentPage, order='asc') => {
     const data = await response.json();
     const meta = {};
     if (total) meta.total = total;
-  console.log(data);
     return {
       data,
       total
@@ -36,8 +35,8 @@ const searchRequest = async (text, amountPosts, currentPage, order='asc') => {
   }
 }
 
-const rangeRequest = async (text='', amountPosts, currentPage, order='asc') => {
-
+const rangeRequest = async (text = '', amountPosts, currentPage, order = 'asc') => {
+  
   if (currentPage && amountPosts) {
     const response = await fetch(`${url}?_page=${currentPage}&_limit=${amountPosts}&q=${text}&_sort=id&_order=${order}`)
       .then(response => response.json())

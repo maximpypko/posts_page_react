@@ -9,7 +9,7 @@ const ServicePanel = forwardRef((props, ref) => {
   const {setInputValue,
     timeRequest,
     setTimeRequest,
-    setPassword,
+    setIdentifier,
     setOrder,
     setAmountPosts,
     setCurrentPage,
@@ -22,7 +22,7 @@ const ServicePanel = forwardRef((props, ref) => {
         setInputValue={setInputValue}
         timeRequest={timeRequest}
         setTimeRequest={setTimeRequest}
-        setPassword={setPassword}
+        setIdentifier={setIdentifier}
         ref={ref}
       />
       <Order setOrder={setOrder}
