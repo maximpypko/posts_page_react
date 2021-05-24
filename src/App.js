@@ -6,10 +6,10 @@ import {
 } from "./utils/request";
 import Nav from "./containers/Nav";
 import ServicePanel from "./containers/ServicePanel";
-import ListPosts from "./containers/ListPosts";
 import ButtonLoadMore from "./components/ButtonLoadMore";
 import PaginationList from "./components/PaginationList";
-import Warning from "./components/Warning";
+import GridViewWithoutPictures from './containers/GridViewWithoutPictures';
+import GridViewWithPictures from './containers/GridViewWithPictures';
 
 export default function App() {
   const [posts, setPosts] = useState([]);
@@ -98,17 +98,21 @@ export default function App() {
               setView={setView}
               ref={formValue}
             />
-            {posts ?
-              <ListPosts
+            {view ?
+              <GridViewWithPictures
                 posts={posts}
                 view={view}
                 setTimeRequest={setTimeRequest}
                 likedPosts={likedPosts}
                 setLikedPosts={setLikedPosts}
-                idElementDeleted={idElementDeleted}
-              /> :
-              <Warning />
-            }
+                idElementDeleted={idElementDeleted}/> :
+              <GridViewWithoutPictures
+                posts={posts}
+                view={view}
+                setTimeRequest={setTimeRequest}
+                likedPosts={likedPosts}
+                setLikedPosts={setLikedPosts}
+                idElementDeleted={idElementDeleted}/>}
             {!posts ||
               amountPaginationItems === currentPage ||
               <ButtonLoadMore
