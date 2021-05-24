@@ -11,37 +11,35 @@ function ListItem({
 }) {
   
   const { id, body, title } = element;
+  const onLoad = useRef();
   const[classButtonHeart, setClassButtonHeart] = useState('')
-  const[activeLineClass, setActiveLineClass]= useState('')
-  const onLoad = useRef()
 
-  const hendlerClickButtonHeart = ({ target }) => {
-    target.closest('.uk-text-success') ?
-      setClassButtonHeart('') :
-      setClassButtonHeart('uk-text-success')
-    
+  const activeLineClass = view ? '' : 'uk-heading-divider';
+
+  const hendlerClickButtonHeart = () => {
+ 
+    setLikedPosts([...likedPosts, element])
     setLikedPosts(() => {
       const flag = likedPosts.find(post => post.id === id);
-
       if (flag) {
         const newLikedPosts = likedPosts.filter(post => post.id !== id);
         return newLikedPosts
-        
-      } else {
+      }else {
         return  [element, ...likedPosts]
       }
-    })             
+    })
   }
+
+  useEffect(() => {
+    setClassButtonHeart(() => likedPosts.find(post => post.id === id) ? 'uk-text-success' : ''
+    )
+  }, [id, likedPosts])
 
   useEffect(() => {
     if (idElementDeleted === element.id) {
       setClassButtonHeart('')
     }
   }, [element.id, idElementDeleted])
-
-  useEffect(() => {
-    view ? setActiveLineClass('') : setActiveLineClass('uk-heading-divider')
-  }, [view])
 
   useEffect(() => {
     if(onLoad.current) setTimeRequest(false)
@@ -63,12 +61,12 @@ function ListItem({
         </div>}
         <div>
           <div className="uk-card-body">
-            <h3 className={`uk-flex-row-reverse uk-card-title uk-margin-remove-bottom uk-flex uk-flex-middle uk-flex-between uk-height-small uk-text-break${activeLineClass}`}>
+            <h3 className={`uk-flex-row-reverse uk-card-title uk-margin-remove-bottom uk-flex uk-flex-middle uk-flex-between uk-height-small uk-text-break ${activeLineClass}`}>
               <button
                 className={`uk-width-3-4 uk-icon-link ${classButtonHeart}`}
                 uk-icon="heart"
-                onClick={e => {
-                  hendlerClickButtonHeart(e)
+                onClick={() => {
+                  hendlerClickButtonHeart()
                 }}
                 ></button>
               {title}
