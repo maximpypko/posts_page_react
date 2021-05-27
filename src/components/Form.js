@@ -1,12 +1,16 @@
-import { forwardRef } from 'react';
+import { useContext } from 'react';
 import { IdRequest } from '../utils/enums';
 import PropTypes from 'prop-types';
+import  Context  from '../Context';
 
-const Form = forwardRef((props, ref) => {
+const Form = () => {
   
-  const {timeRequest,
+  const {
+    formValue,
+    timeRequest,
     setTimeRequest,
-    setIdentifier } = props;
+    setIdentifier
+  } = useContext(Context)
 
   const debounce = (fn, ms) => {
     let timeout;
@@ -34,7 +38,7 @@ const Form = forwardRef((props, ref) => {
           uk-spinner="ratio: 0.6"
         ></span>}
       <input
-        ref={ref}
+        ref={formValue}
         className="uk-search-input"
         type="search"
         placeholder="Search..."
@@ -44,7 +48,7 @@ const Form = forwardRef((props, ref) => {
       />
     </form>      
   );
-})
+}
 
 Form.propTypes = {
   setInputValue: PropTypes.func,

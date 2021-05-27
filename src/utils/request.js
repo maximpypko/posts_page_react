@@ -1,7 +1,5 @@
-const url = "https://jsonplaceholder.typicode.com/posts";
+const getRequest = async (url, page = 1, limit = 6, order = 'asc') => {
 
-const getRequest = async (page = 1, limit = 6, order = 'asc') => {
-  
   const response = await fetch(`${url}?_page=${page}&_limit=${+limit}&_sort=id&_order=${order}`,
     {
       method: 'GET',
@@ -21,7 +19,7 @@ const getRequest = async (page = 1, limit = 6, order = 'asc') => {
   }
 }
 
-const searchRequest = async (text, amountPosts, currentPage, order='asc') => {
+const searchRequest = async (url, text, amountPosts, currentPage, order='asc') => {
   if (text) {
     const response = await fetch(`${url}?_page=${currentPage}&_limit=${+amountPosts}&q=${text}&_sort=id&_order=${order}`)
     const total = response.headers.get('X-Total-Count');
@@ -35,8 +33,8 @@ const searchRequest = async (text, amountPosts, currentPage, order='asc') => {
   }
 }
 
-const rangeRequest = async (text = '', amountPosts, currentPage, order = 'asc') => {
-  
+const rangeRequest = async (url, text = '', amountPosts, currentPage, order = 'asc') => {
+
   if (currentPage && amountPosts) {
     const response = await fetch(`${url}?_page=${currentPage}&_limit=${amountPosts}&q=${text}&_sort=id&_order=${order}`)
       .then(response => response.json())

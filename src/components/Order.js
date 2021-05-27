@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types';
+import  Context  from '../Context';
+import { useContext } from 'react';
 
-function Order({ setOrder }) {
+function Order() {
   
+  const {setOrder} = useContext(Context);
+
   return (
     <select
       className={`uk-select uk-width-small uk-margin-auto-left`}

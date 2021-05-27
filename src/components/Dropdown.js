@@ -1,18 +1,27 @@
 import LikedPostItem from './LikedPostItem';
+import LikedAlbumItem from './LikedAlbumItem';
 import PropTypes from 'prop-types';
+import { useContext } from 'react';
+import Context from '../Context';
 
-function Dropdown({ likedPosts, setLikedPosts, setIdElementDeleted }) {
+
+function Dropdown() {
+
+  const {
+    likedPosts,
+    likedAlbums
+  } = useContext(Context);
 
   return (
     <div
-      className="uk-width-large"
+      className="dropdown__container" 
       uk-dropdown='mode: click'>
-      <div className="uk-dropdown-grid uk-child-width-1-1@m" uk-grid='true'>
+      <div className="dropdown__item">
         <div>
           <table className="uk-table uk-table-divider uk-table-justify">
             <thead>
               <tr>
-                <th>Title</th>
+                <th>Posts title</th>
                 <th className="uk-text-right">Delete</th>
               </tr>
             </thead>
@@ -23,9 +32,7 @@ function Dropdown({ likedPosts, setLikedPosts, setIdElementDeleted }) {
                     <LikedPostItem
                       key={post.id}
                       post={post}
-                      likedPosts={likedPosts}
-                      setLikedPosts={setLikedPosts}
-                      setIdElementDeleted={setIdElementDeleted}/>
+                    />
                   )
                 })
               }
@@ -33,7 +40,31 @@ function Dropdown({ likedPosts, setLikedPosts, setIdElementDeleted }) {
           </table>
         </div>
       </div>
-    </div>    
+      <div className="dropdown__item">
+        <div>
+          <table className="uk-table uk-table-divider uk-table-justify">
+            <thead>
+              <tr>
+                <th>Albums title</th>
+                <th className="uk-text-right">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                likedAlbums.map((album) => {
+                  return (
+                    <LikedAlbumItem
+                      key={album.id}
+                      album={album}
+                    />
+                  )
+                })
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>   
   );
 }
 

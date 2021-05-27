@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import Context  from '../Context';
 
-function ListItem({
-  element,
-  setTimeRequest,
-  likedPosts,
-  setLikedPosts,
-  idElementDeleted,
-  view
-}) {
-  
+function ListItem({element}) {
+
+  const {
+    setSelectedPost,
+    setTimeRequest,
+    likedPosts,
+    setLikedPosts,
+    view
+  } = useContext(Context)
+
   const { id, body, title } = element;
   const onLoad = useRef();
   const[classButtonHeart, setClassButtonHeart] = useState('')
@@ -34,12 +37,6 @@ function ListItem({
     setClassButtonHeart(() => likedPosts.find(post => post.id === id) ? 'uk-text-success' : ''
     )
   }, [id, likedPosts])
-
-  useEffect(() => {
-    if (idElementDeleted === element.id) {
-      setClassButtonHeart('')
-    }
-  }, [element.id, idElementDeleted])
 
   useEffect(() => {
     if(onLoad.current) setTimeRequest(false)
@@ -75,12 +72,14 @@ function ListItem({
               className={`uk-text-truncate ${activeLineClass}`} >
               {body}
             </p>
-            <a
-              href="post.html"
+            <Link 
+              to={`post/${id}`}
               className="uk-button uk-button-text"
-              onClick={e=> e.preventDefault()}>
+              onClick={() => {
+              setSelectedPost(element)
+              }}>
               Read more
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -97,4 +96,4 @@ ListItem.propTypes = {
   view: PropTypes.bool
 }
 
-export default ListItem;
+export default withRouter(ListItem);

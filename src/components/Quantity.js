@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types';
+import  Context  from '../Context';
+import { useContext } from 'react';
 
-function Quantity({
-  setAmountPosts,
-  setCurrentPage
-}) {
+function Quantity() {
   
+  const {
+    setAmountPosts,
+    setCurrentPage
+  } = useContext(Context);
+
   return (
     <select
       className=' uk-select uk-width-small uk-margin-left'

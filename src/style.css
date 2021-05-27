@@ -1,0 +1,18 @@
+.dropdown__container{
+  width: 50%;
+}
+
+.dropdown__item {
+  display: inline-block;
+  vertical-align:top;
+  width: 48%;
+  height: 100%;
+}
+
+.dropdown__item:first-of-type{
+  margin-right: 4%;
+}
+
+.uk-button--close{
+  width: max-content;
+}

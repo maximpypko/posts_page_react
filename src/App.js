@@ -1,145 +1,148 @@
+import { Router, Route, Switch,  BrowserRouter } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 import { useState, useEffect, useRef } from 'react';
-import {
-  getRequest,
-  searchRequest,
-  rangeRequest
-} from "./utils/request";
-import Nav from "./containers/Nav";
-import ServicePanel from "./containers/ServicePanel";
-import ButtonLoadMore from "./components/ButtonLoadMore";
-import PaginationList from "./components/PaginationList";
-import GridViewWithoutPictures from './containers/GridViewWithoutPictures';
-import GridViewWithPictures from './containers/GridViewWithPictures';
-import { IdRequest } from './utils/enums';
+import { getRequest, searchRequest, rangeRequest } from "./utils/request";
+import PostPage from './containers/PostPage';
+import AlbumsPage from './containers/AlbumsPage';
+import Post from './containers/Post';
+import Context  from './Context';
+import { IdRequest, url }   from './utils/enums';
 
-export default function App() {
+function WrapperPostPage() {
+  const [activePage, setActivePage] = useState(url.urlPosts);
   const [posts, setPosts] = useState([]);
+  const [albums, setAlbums] = useState([]);
   const [amountPosts, setAmountPosts] = useState(6);
   const [amountPaginationItems, setAmountPaginationCount] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
   const [order, setOrder] = useState('asc');
   const [view, setView] = useState(true);
-  const [hiddenElements, setHiddenElements] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const [linkPost, setLinkPosts] = useState(false);
+  const [identifier, setIdentifier] = useState(IdRequest.normal);
+  const [likedPosts, setLikedPosts] = useState([]);
+  const [idElementDeleted, setIdElementDeleted] = useState(null);
+  const [selectedPost, setSelectedPost] = useState({})
+  const [hiddenElements, setHiddenElements] = useState(false);
   const [timeRequest, setTimeRequest] = useState(false);
   const [range, setRange] = useState(false);
-  const [identifier, setIdentifier] = useState(IdRequest.normal)
-  const [likedPosts, setLikedPosts] = useState([])
-  const [idElementDeleted, setIdElementDeleted] = useState(null)
-
-  const formValue = useRef()
+  const [likedAlbums, setLikedAlbums] = useState([]);
+  const formValue = useRef();
 
   useEffect(() => {
     if (identifier === IdRequest.normal) {
 
-      getRequest(currentPage, amountPosts, order).then(response => {
-        formValue.current.value = '';
-        setHiddenElements(false);
-        setPosts(response.data);
-        const newAmountPaginationItems = Math.ceil(response.total / amountPosts);
-        setAmountPaginationCount(newAmountPaginationItems);
-      })
+      getRequest(activePage, currentPage, amountPosts, order)
+        .then(response => {
+          formValue.current.value = '';
+          setHiddenElements(false);
+          activePage === url.urlPosts ? setPosts(response.data) : setAlbums(response.data);
+          const newAmountPaginationItems = Math.ceil(response.total / amountPosts);
+          setAmountPaginationCount(newAmountPaginationItems);
+        })
     }
-  }, [amountPosts, order, currentPage, identifier, linkPost]);
+  }, [amountPosts, order, currentPage, identifier, linkPost, activePage]);
   
   useEffect(() => {
     if (identifier === IdRequest.search)
+      searchRequest(activePage, formValue.current.value, amountPosts, currentPage, order)
+        .then(response => {
 
-      searchRequest(formValue.current.value, amountPosts, currentPage, order).then(response => {
-
-      if (response) {
-        if (response.data.length === 0) {
-          setPosts(false)
-          setTimeRequest(false);
-        }
-        if (response.data.length > 0) {
-          setHiddenElements(false);
-          setTimeRequest(false);
-          setPosts(response.data);
-          const newAmountPaginationItems = Math.ceil(response.total / amountPosts);
-          setAmountPaginationCount(newAmountPaginationItems);
-        }
-      }
-    })
-  }, [amountPaginationItems, amountPosts, currentPage, order, identifier, timeRequest]);
+          if (response) {
+            if (response.data.length === 0) {
+              activePage === url.urlPosts ? setPosts(false) : setAlbums(false);
+              setTimeRequest(false);
+            }
+            if (response.data.length > 0) {
+              setHiddenElements(false);
+              setTimeRequest(false);
+              activePage === url.urlPosts ? setPosts(response.data) : setAlbums(response.data);
+              const newAmountPaginationItems = Math.ceil(response.total / amountPosts);
+              setAmountPaginationCount(newAmountPaginationItems);
+            }
+          }
+        })
+  }, [amountPaginationItems, amountPosts, currentPage, order, identifier, timeRequest, activePage]);
   
   useEffect(() => {
     if (identifier === IdRequest.buttonLoadMore && range) {
-
       setRange(false);
-      rangeRequest(formValue.current.value,amountPosts, currentPage, order ).then(response => {
-        setIdentifier('')
-        setPosts([...posts, ...response]);
-      })
+      rangeRequest(activePage, formValue.current.value, amountPosts, currentPage, order)
+        .then(response => {
+          setIdentifier('')
+          setTimeRequest(false);
+          activePage === url.urlPosts ?
+            setPosts([...posts, ...response]) :
+            setAlbums([...albums, ...response])
+        })
     }
-  }, [amountPosts, currentPage, order, identifier, posts, range]);
+  }, [amountPosts, currentPage, order, identifier, posts, range, activePage, albums]);
 
   return (
-    <>
-      <main className="uk-main">
-        <Nav
-          setCurrentPage={setCurrentPage}
-          linkPost={linkPost}
-          setLinkPosts={setLinkPosts}
-          setIdentifier={setIdentifier}
-          likedPosts={likedPosts}
-          setLikedPosts={setLikedPosts}
-          setIdElementDeleted={setIdElementDeleted}
-        />
-        <div className="uk-section">
-          <div className="uk-container">
-            <ServicePanel
-              timeRequest={timeRequest}
-              setTimeRequest={setTimeRequest}
-              setIdentifier={setIdentifier}
-              setOrder={setOrder}
-              setAmountPosts={setAmountPosts}
-              setCurrentPage={setCurrentPage}
-              view={view}
-              setView={setView}
-              ref={formValue}
-            />
-            {view ?
-              <GridViewWithPictures
-                posts={posts}
-                view={view}
-                setTimeRequest={setTimeRequest}
-                likedPosts={likedPosts}
-                setLikedPosts={setLikedPosts}
-                idElementDeleted={idElementDeleted}/> :
-              <GridViewWithoutPictures
-                posts={posts}
-                view={view}
-                setTimeRequest={setTimeRequest}
-                likedPosts={likedPosts}
-                setLikedPosts={setLikedPosts}
-                idElementDeleted={idElementDeleted}/>}
-            {!posts ||
-              amountPaginationItems === currentPage ||
-              <ButtonLoadMore
-              setCurrentPage={setCurrentPage}
-              currentPage={currentPage}
-              hiddenElements={hiddenElements}
-              timeRequest={timeRequest}
-              setTimeRequest={setTimeRequest}
-              setRange={setRange}
-              identifier={identifier}
-              setIdentifier={setIdentifier}
-              />
-            }
-            {!posts ||
-              <PaginationList
-              amountPaginationItems={amountPaginationItems}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              hiddenElements={hiddenElements}
-              setIdentifier={setIdentifier}
-              ref={formValue}
-              />
-            }
-          </div>
-        </div>
-      </main>
-    </>
-  );
+    {
+      posts,
+      setPosts,
+      albums,
+      setAlbums,
+      amountPosts,
+      setAmountPosts,
+      amountPaginationItems,
+      setAmountPaginationCount,
+      order,
+      setOrder,
+      view,
+      setView,
+      currentPage,
+      setCurrentPage,
+      linkPost,
+      setLinkPosts,
+      identifier,
+      setIdentifier,
+      likedPosts,
+      setLikedPosts,
+      idElementDeleted,
+      setIdElementDeleted,
+      selectedPost,
+      setSelectedPost,
+      hiddenElements,
+      setHiddenElements,
+      timeRequest,
+      setTimeRequest,
+      range,
+      setRange,
+      activePage,
+      setActivePage,
+      likedAlbums,
+      setLikedAlbums,
+      formValue
+    }
+  )
+}
+
+const history = createBrowserHistory();
+
+export default function App() {
+
+  return (
+    <Context.Provider value={WrapperPostPage()}>
+      <Router history={history}>
+      <BrowserRouter>
+        <Switch>
+          <Route
+            path='/'
+            exact
+            component={PostPage}
+          />
+          <Route
+            path='/albums'
+            component={AlbumsPage}
+          />
+          <Route
+            path='/post/:id'
+            component={Post}
+          />
+          </Switch>
+          </BrowserRouter>
+      </Router>            
+      </Context.Provider>
+  )
 }

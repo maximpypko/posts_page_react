@@ -1,12 +1,24 @@
 import PropTypes from 'prop-types';
+import  Context  from '../Context';
+import { useContext } from 'react';
+import { url }   from '../utils/enums';
 
-function View({ view, setView}) {
+
+function View() {
   
+  const {
+    activePage,
+    view,
+    setView
+  } = useContext(Context);
+
   let defaultView, otherView;
   view ? defaultView = 'uk-active' : otherView = 'uk-active';
 
+  const isActiveViewWithPictures = activePage === url.urlAlbums ? 'uk-invisible' : '';
+
   return (
-    <div className='uk-button-group uk-margin-left'>
+    <div className={`uk-button-group uk-margin-left ${isActiveViewWithPictures}`}>
       <button
         className={`uk-button uk-button-default ${defaultView}`}
         onClick={() => setView(true)}>

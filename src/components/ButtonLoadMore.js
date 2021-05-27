@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types';
-import { IdRequest } from '../utils/enums';
+import {IdRequest}  from '../utils/enums';
+import  Context  from '../Context';
+import { useContext } from 'react';
 
-function ButtonLoadMore({
-  setCurrentPage,
-  currentPage,
-  hiddenElements,
-  timeRequest,
-  setTimeRequest,
-  setRange,
-  setIdentifier
-}) {
+function ButtonLoadMore() {
+  const {
+    setCurrentPage,
+    currentPage,
+    hiddenElements,
+    timeRequest,
+    setTimeRequest,
+    setRange,
+    setIdentifier
+  } = useContext(Context)
   
   return (
     <>
@@ -22,8 +25,8 @@ function ButtonLoadMore({
             setCurrentPage(currentPage + 1)
             setRange(true)
             setTimeRequest(true)
-          }
-          }>
+          }}
+        >
           Load more
             {!timeRequest || <div className="uk-margin-small-left" uk-spinner="ratio: 0.6"></div>}
         </button>

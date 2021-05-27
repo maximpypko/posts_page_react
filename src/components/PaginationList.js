@@ -1,16 +1,19 @@
 import PropTypes from 'prop-types';
-import {forwardRef} from 'react';
 import { useState, useEffect } from "react";
 import { IdRequest } from '../utils/enums';
+import  Context  from '../Context';
+import { useContext } from 'react';
 
-const PaginationList = forwardRef(( props, ref ) => {
+const PaginationList = () => {
   
   const {
     amountPaginationItems,
     currentPage,
     setCurrentPage,
     hiddenElements,
-    setIdentifier } = props;
+    setIdentifier,
+    formValue
+  } = useContext(Context)
   
   const [line, setLine] = useState([]);
 
@@ -49,7 +52,7 @@ const PaginationList = forwardRef(( props, ref ) => {
           <a href="/" onClick={(e) => {
             e.preventDefault();
             setCurrentPage((prev) => prev === 1 ? prev : prev - 1);
-            setIdentifier(ref.current.value ? IdRequest.search : IdRequest.normal)
+            setIdentifier(formValue.current.value ? IdRequest.search : IdRequest.normal)
           }}>
             <span uk-pagination-previous='true'></span>
           </a>
@@ -62,7 +65,7 @@ const PaginationList = forwardRef(( props, ref ) => {
                 e.preventDefault();
                 if (Number.isInteger(+e.target.innerText)) {
                   setCurrentPage(element);
-                  setIdentifier(ref.current.value ? IdRequest.search : IdRequest.normal)
+                  setIdentifier(formValue.current.value ? IdRequest.search : IdRequest.normal)
                 } else {
                   jumpOver(index);
                 }
@@ -75,7 +78,7 @@ const PaginationList = forwardRef(( props, ref ) => {
           <a href="/" onClick={(e) => {
             e.preventDefault()
             setCurrentPage((prev) => prev === currentPage.length ? prev : prev + 1);
-            setIdentifier(ref.current.value ? IdRequest.search : IdRequest.normal)
+            setIdentifier(formValue.current.value ? IdRequest.search : IdRequest.normal)
           }}>
             <span uk-pagination-next='true'></span>
           </a>
@@ -83,7 +86,7 @@ const PaginationList = forwardRef(( props, ref ) => {
       </ul>}
     </>
   );
-})
+}
 
 PaginationList.propTypes = {
   amountPaginationItems:PropTypes.number,
