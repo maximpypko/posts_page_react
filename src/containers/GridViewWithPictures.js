@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import ListItem from "../components/ListItem";
 import Warning from "../components/Warning";
 
@@ -8,7 +9,8 @@ function GridViewWithPictures({ posts }) {
       <div className="uk-container uk-cover-container">  
         <div className='uk-grid uk-child-width-1-2@s uk-child-width-1-2@m ' >
         
-          {posts ? 
+          {
+            posts ?
             posts.map(element => {
               return <ListItem
                 key={element.id}
@@ -22,4 +24,9 @@ function GridViewWithPictures({ posts }) {
     </div> 
   );
 }
+
+GridViewWithPictures.propTypes = {
+  posts: PropTypes.array
+}
+
 export default GridViewWithPictures;

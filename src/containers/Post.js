@@ -1,10 +1,11 @@
 import { useContext } from 'react';
+import PropTypes from 'prop-types';
 import Context  from '../Context';
 import Nav from './Nav';
 import ButtonBack from '../components/ButtonBack';
 
 function Post() {
-  const { selectedPost } = useContext(Context)
+  const { selectedPost } = useContext(Context);
  
   return (
     <>
@@ -57,4 +58,9 @@ function Post() {
     
   );
 }
+
+Post.propTypes = {
+  selectedPost: PropTypes.object
+}
+
 export default Post

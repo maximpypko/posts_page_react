@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import ListItem from "../components/ListItem";
 import Warning from "../components/Warning";
 
@@ -19,6 +20,10 @@ function GridViewWithoutPictures({ posts }) {
       </div>
     </div> 
   );
+}
+
+GridViewWithoutPictures.propTypes = {
+  posts: PropTypes.array
 }
 
 export default GridViewWithoutPictures;

@@ -12,7 +12,7 @@ export default function PostPage() {
   const {
     posts,
     amountPaginationItems,
-    view,
+    isViewWithPictures,
     currentPage
   } = useContext(Context);
 
@@ -21,7 +21,7 @@ export default function PostPage() {
       <Nav/>
       <ServicePanel />
       {
-        view ?
+        isViewWithPictures ?
         <GridViewWithPictures posts={posts}/> :
         <GridViewWithoutPictures posts={posts}/>
       }

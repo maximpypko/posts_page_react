@@ -93,7 +93,8 @@ PaginationList.propTypes = {
   currentPage:PropTypes.number,
   setCurrentPage: PropTypes.func,
   hiddenElements: PropTypes.bool,
-  setIdentifier: PropTypes.func
+  setIdentifier: PropTypes.func,
+  formValue: PropTypes.object
 }
 
 export default PaginationList;

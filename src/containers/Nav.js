@@ -38,8 +38,9 @@ function Nav() {
             <Link to="/albums"
               onClick={() => {
                 setActivePage(url.urlAlbums)
-              }}
-            >Albums</Link>
+              }}>
+              Albums
+            </Link>
           </li>
         </ul>
       </div>
@@ -47,7 +48,7 @@ function Nav() {
         likedPosts={likedPosts}
         setLikedPosts={setLikedPosts}
         setIdElementDeleted={setIdElementDeleted}
-        />
+      />
     </nav>
   );
 }
@@ -56,7 +57,12 @@ Nav.propTypes = {
   setCurrentPage: PropTypes.func,
   linkPost:PropTypes.bool,
   setLinkPosts:PropTypes.func,
-  setIdentifier: PropTypes.func
+  setIdentifier: PropTypes.func,
+  likedPosts: PropTypes.array,
+  setLikedPosts: PropTypes.func,
+  setIdElementDeleted: PropTypes.func,
+  activePage: PropTypes.string,
+  setActivePage: PropTypes.func
 }
 
 export default withRouter(Nav);

@@ -70,6 +70,7 @@ function Dropdown() {
 
 Dropdown.propTypes = {
   likedPosts: PropTypes.array,
+  likedAlbums: PropTypes.array
 }
 
 export default Dropdown;

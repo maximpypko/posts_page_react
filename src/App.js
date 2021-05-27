@@ -2,11 +2,11 @@ import { Router, Route, Switch,  BrowserRouter } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { useState, useEffect, useRef } from 'react';
 import { getRequest, searchRequest, rangeRequest } from "./utils/request";
+import { IdRequest, url }   from './utils/enums';
 import PostPage from './containers/PostPage';
 import AlbumsPage from './containers/AlbumsPage';
 import Post from './containers/Post';
 import Context  from './Context';
-import { IdRequest, url }   from './utils/enums';
 
 function WrapperPostPage() {
   const [activePage, setActivePage] = useState(url.urlPosts);
@@ -15,19 +15,19 @@ function WrapperPostPage() {
   const [amountPosts, setAmountPosts] = useState(6);
   const [amountPaginationItems, setAmountPaginationCount] = useState(null);
   const [order, setOrder] = useState('asc');
-  const [view, setView] = useState(true);
+  const [isViewWithPictures, setIsViewWithPictures] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [linkPost, setLinkPosts] = useState(false);
   const [identifier, setIdentifier] = useState(IdRequest.normal);
   const [likedPosts, setLikedPosts] = useState([]);
   const [idElementDeleted, setIdElementDeleted] = useState(null);
-  const [selectedPost, setSelectedPost] = useState({})
+  const [selectedPost, setSelectedPost] = useState({});
   const [hiddenElements, setHiddenElements] = useState(false);
   const [timeRequest, setTimeRequest] = useState(false);
   const [range, setRange] = useState(false);
   const [likedAlbums, setLikedAlbums] = useState([]);
   const formValue = useRef();
-
+  
   useEffect(() => {
     if (identifier === IdRequest.normal) {
 
@@ -44,6 +44,7 @@ function WrapperPostPage() {
   
   useEffect(() => {
     if (identifier === IdRequest.search)
+
       searchRequest(activePage, formValue.current.value, amountPosts, currentPage, order)
         .then(response => {
 
@@ -89,8 +90,8 @@ function WrapperPostPage() {
       setAmountPaginationCount,
       order,
       setOrder,
-      view,
-      setView,
+      isViewWithPictures,
+      setIsViewWithPictures,
       currentPage,
       setCurrentPage,
       linkPost,
@@ -125,24 +126,24 @@ export default function App() {
   return (
     <Context.Provider value={WrapperPostPage()}>
       <Router history={history}>
-      <BrowserRouter>
-        <Switch>
-          <Route
-            path='/'
-            exact
-            component={PostPage}
-          />
-          <Route
-            path='/albums'
-            component={AlbumsPage}
-          />
-          <Route
-            path='/post/:id'
-            component={Post}
-          />
+        <BrowserRouter>
+          <Switch>
+            <Route
+              path='/'
+              exact
+              component={PostPage}
+            />
+            <Route
+              path='/albums'
+              component={AlbumsPage}
+            />
+            <Route
+              path='/post/:id'
+              component={Post}
+            />
           </Switch>
-          </BrowserRouter>
+        </BrowserRouter>
       </Router>            
-      </Context.Provider>
+    </Context.Provider>
   )
 }

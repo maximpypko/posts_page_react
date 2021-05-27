@@ -10,14 +10,14 @@ function ListItem({element}) {
     setTimeRequest,
     likedPosts,
     setLikedPosts,
-    view
+    isViewWithPictures
   } = useContext(Context)
 
   const { id, body, title } = element;
   const onLoad = useRef();
-  const[classButtonHeart, setClassButtonHeart] = useState('')
+  const [classButtonHeart, setClassButtonHeart] = useState('');
 
-  const activeLineClass = view ? '' : 'uk-heading-divider';
+  const activeLineClass =  isViewWithPictures ? '' : 'uk-heading-divider';
 
   const hendlerClickButtonHeart = () => {
  
@@ -47,7 +47,7 @@ function ListItem({element}) {
       <div
         ref={onLoad}
         className="grid uk-card uk-child-width-expand uk-card-default uk-margin-medium-bottom  uk-grid-collapse uk-margin uk-grid">
-        {!view || <div className="uk-card-media-left uk-cover-container uk-first-column">
+        {! isViewWithPictures || <div className="uk-card-media-left uk-cover-container uk-first-column">
           <img
             src="https://picsum.photos/600/400"
             alt=""
@@ -93,7 +93,7 @@ ListItem.propTypes = {
   likedPosts: PropTypes.array,
   setLikedPosts: PropTypes.func,
   idElementDeleted: PropTypes.number,
-  view: PropTypes.bool
+  isViewWithPictures: PropTypes.bool
 }
 
 export default withRouter(ListItem);

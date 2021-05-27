@@ -3,17 +3,16 @@ import  Context  from '../Context';
 import { useContext } from 'react';
 import { url }   from '../utils/enums';
 
-
 function View() {
   
   const {
     activePage,
-    view,
-    setView
+    isViewWithPictures,
+    setIsViewWithPictures
   } = useContext(Context);
 
   let defaultView, otherView;
-  view ? defaultView = 'uk-active' : otherView = 'uk-active';
+  isViewWithPictures ? defaultView = 'uk-active' : otherView = 'uk-active';
 
   const isActiveViewWithPictures = activePage === url.urlAlbums ? 'uk-invisible' : '';
 
@@ -21,12 +20,12 @@ function View() {
     <div className={`uk-button-group uk-margin-left ${isActiveViewWithPictures}`}>
       <button
         className={`uk-button uk-button-default ${defaultView}`}
-        onClick={() => setView(true)}>
+        onClick={() => setIsViewWithPictures(true)}>
         <span uk-icon="icon:  grid"></span>
       </button>
       <button
         className={`uk-button uk-button-default ${otherView}`}
-        onClick={() => setView(false)}>
+        onClick={() => setIsViewWithPictures(false)}>
         <span uk-icon="icon:  list"></span>
       </button>
     </div>
@@ -34,8 +33,9 @@ function View() {
 }
 
 View.propTypes = {
-  view: PropTypes.bool,
-  setView: PropTypes.func
+  activePage: PropTypes.string,
+  isViewWithPictures: PropTypes.bool,
+  setIsViewWithPictures: PropTypes.func
 }
 
 export default View;

@@ -10,7 +10,7 @@ const Form = () => {
     timeRequest,
     setTimeRequest,
     setIdentifier
-  } = useContext(Context)
+  } = useContext(Context);
 
   const debounce = (fn, ms) => {
     let timeout;
@@ -25,10 +25,9 @@ const Form = () => {
     e.preventDefault();
     setIdentifier(IdRequest.search);
     setTimeRequest(true);
-    e.target.blur()
   } 
 
-  const hendlerChange = debounce(onChange, 1000)
+  const hendlerChange = debounce(onChange, 1000);
   
   return (
     <form className="uk-search uk-search-default uk-width-medium uk-margin-remove uk-margin-right">

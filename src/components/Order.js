@@ -4,13 +4,13 @@ import { useContext } from 'react';
 
 function Order() {
   
-  const {setOrder} = useContext(Context);
+  const { setOrder } = useContext(Context);
 
   return (
     <select
       className={`uk-select uk-width-small uk-margin-auto-left`}
       onChange={(e) => {
-        setOrder(e.target.value)
+        setOrder(e.target.value);
       }
       }>
       <option value="asc">ASC</option>

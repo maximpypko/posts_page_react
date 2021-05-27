@@ -1,17 +1,17 @@
-import Context  from '../Context';
 import { useState, useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
+import Context from '../Context';
 
 
 function AlbumItem({ album }) {
   const { id, title } = album;
-
+  
   const {
     likedAlbums,
     setLikedAlbums
-  } = useContext(Context)
+  } = useContext(Context);
 
-
-  const [classButtonHeart, setClassButtonHeart] = useState('')
+  const [classButtonHeart, setClassButtonHeart] = useState('');
   
   useEffect(() => {
     setClassButtonHeart(() => likedAlbums.find(album => album.id === id) ? 'uk-text-success' : ''
@@ -49,10 +49,16 @@ function AlbumItem({ album }) {
               hendlerClickButtonHeart()
             }}        
           ></button>
-        </div>             
-                    
+        </div>                        
       </div>                
     </div>
   )
 }
+
+AlbumItem.propTypes = {
+  album: PropTypes.object,
+  likedAlbums: PropTypes.array,
+  setLikedAlbums: PropTypes.func
+}
+
 export default AlbumItem;

@@ -34,7 +34,9 @@ function LikedAlbumItem({ album }) {
 }
   
 LikedAlbumItem.propTypes = {
-    
+    likedAlbums: PropTypes.array,
+    setLikedAlbums: PropTypes.func,
+    setIdElementDeleted: PropTypes.func
 }
-  
+
 export default LikedAlbumItem;

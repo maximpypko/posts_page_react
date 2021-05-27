@@ -11,9 +11,9 @@ function LikedPostItem({ post }) {
     } = useContext(Context);
     
     const hendlerClickButton = () => {
-        const newLikedPosts = likedPosts.filter(el => el.id !== post.id)
-        setLikedPosts(newLikedPosts)
-        setIdElementDeleted(post.id)
+        const newLikedPosts = likedPosts.filter(el => el.id !== post.id);
+        setLikedPosts(newLikedPosts);
+        setIdElementDeleted(post.id);
     }
 
     return (

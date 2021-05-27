@@ -1,7 +1,6 @@
 import Dropdown from "./Dropdown";
-import PropTypes from 'prop-types';
 
-function ButtonLike ({likedPosts, setLikedPosts, setIdElementDeleted}) {
+function ButtonLike () {
 
     return (
       <div className="uk-navbar-right">
@@ -11,19 +10,10 @@ function ButtonLike ({likedPosts, setLikedPosts, setIdElementDeleted}) {
             type="button"
             uk-icon="icon: heart; ratio: 2"
           ></button>
-          <Dropdown
-            likedPosts={likedPosts}
-            setLikedPosts={setLikedPosts}
-            setIdElementDeleted={setIdElementDeleted}/>
+          <Dropdown/>
         </div>
       </div>
     );
-}
-
-ButtonLike.propTypes = {
-  likedPosts:PropTypes.array,
-  setLikedPosts:PropTypes.func,
-  setIdElementDeleted:PropTypes.func,
 }
 
 export default ButtonLike;
