@@ -1,22 +1,47 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 function CommentForm( {comments, setComments} ) {
   
   const formRef = useRef();
+  const сlassName = {
+    form: 'uk-invisible',
+    email: 'uk-invisible'
+  }
+  const [warningClassName, setWarningClassName]= useState(сlassName)
   
   const hendlerForm = () => {
    
-    const [, author, email, body, ] = formRef.current;
-    const newFormVallue = {
-      id: Date.now(),
-      author: author.value,
-      email: email.value,
-      body:body.value
+    const [, author, email, body,] = formRef.current;
+    
+
+    const resValidationEmail = validateEmail(email.value);
+
+    if (!resValidationEmail) {
+      setWarningClassName({ form: 'uk-invisible', email: '' })
+      
+    } else {
+      if (author.value && body.value) {
+        setWarningClassName({form:'uk-invisible', email: 'uk-invisible'})
+          const newFormVallue = {
+            id: Date.now(),
+            author: author.value,
+            email: email.value,
+            body:body.value
+          }
+          setComments([newFormVallue, ...comments])
+        formRef.current.reset()
+        
+      } else {
+        setWarningClassName({form:'', email: 'uk-invisible'})
+      }  
     }
-    setComments([newFormVallue, ...comments])
-    formRef.current.reset()
   }
- 
+
+  function validateEmail(email) {
+    const result = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    return result.test(String(email).toLowerCase());
+  }
+
   return (
     <form
       ref={formRef}
@@ -40,6 +65,7 @@ function CommentForm( {comments, setComments} ) {
             placeholder="Email"
             required
           />
+          <p className={`uk-text-danger ${warningClassName.email}`}> * Enter correct email</p>
         </div>
         <div className="uk-margin">
           <textarea
@@ -49,6 +75,7 @@ function CommentForm( {comments, setComments} ) {
             required
           ></textarea>
         </div>
+        <p className={`uk-text-danger ${warningClassName.form}`}> * To successfully create a comment, all fields must be filled</p>
         <div className="uk-margin">
           <button
             className="uk-button uk-button-primary"

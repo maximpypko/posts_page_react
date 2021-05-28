@@ -5,6 +5,7 @@ import Nav from './Nav';
 import ButtonBack from '../components/ButtonBack';
 import CommentForm from '../components/CommentForm';
 import Comment from '../components/Comment';
+import IfNoComment from '../components/IfNoComment';
 
 function Post() {
 
@@ -28,13 +29,15 @@ function Post() {
         <h3 className="uk-margin-remove-top">Comments:</h3>
           <div className="uk-comments">
             {
+              comments.length > 0 ? 
               comments.map(comment => {
                 return (
                   <Comment
                     key={comment.id}
                     comment={comment} />
                 )
-              })
+              }) :
+              <IfNoComment/>
             }
           </div>
           <CommentForm
