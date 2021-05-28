@@ -33,7 +33,7 @@ function WrapperPostPage() {
 
       getRequest(activePage, currentPage, amountPosts, order)
         .then(response => {
-          formValue.current.value = '';
+          if (formValue.current) formValue.current.reset();
           setHiddenElements(false);
           activePage === url.urlPosts ? setPosts(response.data) : setAlbums(response.data);
           const newAmountPaginationItems = Math.ceil(response.total / amountPosts);
@@ -44,8 +44,8 @@ function WrapperPostPage() {
   
   useEffect(() => {
     if (identifier === IdRequest.search)
-
-      searchRequest(activePage, formValue.current.value, amountPosts, currentPage, order)
+      
+      searchRequest(activePage, formValue.current[0].value, amountPosts, currentPage, order)
         .then(response => {
 
           if (response) {
@@ -67,7 +67,7 @@ function WrapperPostPage() {
   useEffect(() => {
     if (identifier === IdRequest.buttonLoadMore && range) {
       setRange(false);
-      rangeRequest(activePage, formValue.current.value, amountPosts, currentPage, order)
+      rangeRequest(activePage, formValue.current[0].value, amountPosts, currentPage, order)
         .then(response => {
           setIdentifier('')
           setTimeRequest(false);

@@ -26,7 +26,10 @@ function GridViewWithPictures({ posts }) {
 }
 
 GridViewWithPictures.propTypes = {
-  posts: PropTypes.array
+  posts: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.bool
+  ])
 }
 
 export default GridViewWithPictures;

@@ -30,14 +30,16 @@ const Form = () => {
   const hendlerChange = debounce(onChange, 1000);
   
   return (
-    <form className="uk-search uk-search-default uk-width-medium uk-margin-remove uk-margin-right">
+    <form
+      ref={formValue}
+      className="uk-search uk-search-default uk-width-medium uk-margin-remove uk-margin-right">
         <span uk-search-icon='true'></span>
         {!timeRequest || <span
           className="uk-search-icon uk-search-icon-flip"
           uk-spinner="ratio: 0.6"
         ></span>}
       <input
-        ref={formValue}
+        
         className="uk-search-input"
         type="search"
         placeholder="Search..."

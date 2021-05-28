@@ -23,7 +23,10 @@ function GridViewWithoutPictures({ posts }) {
 }
 
 GridViewWithoutPictures.propTypes = {
-  posts: PropTypes.array
+  posts: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.bool
+  ])
 }
 
 export default GridViewWithoutPictures;
