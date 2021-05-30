@@ -1,19 +1,17 @@
 import PropTypes from 'prop-types';
-import Context  from '../Context';
+import Context  from '../../Context';
 import { useContext } from 'react';
 
 function LikedAlbumItem({ album }) {
     
     const {
         likedAlbums,
-        setLikedAlbums,
-        setIdElementDeleted
+        setLikedAlbums
     } = useContext(Context);
     
     const hendlerClickButton = () => {
         const newLikedAlbums = likedAlbums.filter(el => el.id !== album.id)
         setLikedAlbums(newLikedAlbums)
-        setIdElementDeleted(album.id)
     }
 
     return (
@@ -35,8 +33,7 @@ function LikedAlbumItem({ album }) {
   
 LikedAlbumItem.propTypes = {
     likedAlbums: PropTypes.array,
-    setLikedAlbums: PropTypes.func,
-    setIdElementDeleted: PropTypes.func
+    setLikedAlbums: PropTypes.func
 }
 
 export default LikedAlbumItem;

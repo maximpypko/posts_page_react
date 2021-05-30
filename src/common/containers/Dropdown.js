@@ -1,9 +1,8 @@
-import LikedPostItem from './LikedPostItem';
-import LikedAlbumItem from './LikedAlbumItem';
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
-import Context from '../Context';
-
+import Context from '../../Context';
+import LikedPostItem from '../../posts/components/LikedPostItem';
+import LikedAlbumItem from '../../albums/components/LikedAlbumItem';
 
 function Dropdown() {
 

@@ -1,6 +1,6 @@
-import { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import Context from '../Context';
+import Context from '../../Context';
 
 
 function AlbumItem({ album }) {
@@ -61,4 +61,4 @@ AlbumItem.propTypes = {
   setLikedAlbums: PropTypes.func
 }
 
-export default AlbumItem;
+export default React.memo(AlbumItem);

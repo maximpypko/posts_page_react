@@ -3,9 +3,9 @@ import { createBrowserHistory } from 'history';
 import { useState, useEffect, useRef } from 'react';
 import { getRequest, searchRequest, rangeRequest } from "./utils/request";
 import { IdRequest, url }   from './utils/enums';
-import PostPage from './containers/PostPage';
-import AlbumsPage from './containers/AlbumsPage';
-import Post from './containers/Post';
+import PostPage from './posts/containers/PostPage';
+import AlbumsPage from './albums/containers/AlbumsPage';
+import DetailedPost from './posts/containers/DetailedPost';
 import Context  from './Context';
 
 function WrapperPostPage() {
@@ -20,14 +20,13 @@ function WrapperPostPage() {
   const [linkPost, setLinkPosts] = useState(false);
   const [identifier, setIdentifier] = useState(IdRequest.normal);
   const [likedPosts, setLikedPosts] = useState([]);
-  const [idElementDeleted, setIdElementDeleted] = useState(null);
   const [selectedPost, setSelectedPost] = useState({});
   const [hiddenElements, setHiddenElements] = useState(false);
   const [timeRequest, setTimeRequest] = useState(false);
   const [range, setRange] = useState(false);
   const [likedAlbums, setLikedAlbums] = useState([]);
   const formValue = useRef();
-  
+
   useEffect(() => {
     if (identifier === IdRequest.normal) {
 
@@ -100,8 +99,6 @@ function WrapperPostPage() {
       setIdentifier,
       likedPosts,
       setLikedPosts,
-      idElementDeleted,
-      setIdElementDeleted,
       selectedPost,
       setSelectedPost,
       hiddenElements,
@@ -139,7 +136,7 @@ export default function App() {
             />
             <Route
               path='/post/:id'
-              component={Post}
+              component={DetailedPost}
             />
           </Switch>
         </BrowserRouter>

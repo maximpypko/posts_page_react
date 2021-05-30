@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from "react";
-import { IdRequest } from '../utils/enums';
-import  Context  from '../Context';
+import { IdRequest } from '../../utils/enums';
+import  Context  from '../../Context';
 import { useContext } from 'react';
 
 const PaginationList = () => {

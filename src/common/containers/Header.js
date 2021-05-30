@@ -1,21 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
-import ButtonLike from '../components/ButtonLike';
-import { IdRequest, url } from '../utils/enums';
 import { useContext } from 'react';
-import Context  from '../Context';
+import Context  from '../../Context';
+import ButtonLike from './ButtonLike';
+import { IdRequest, url } from '../../utils/enums';
 
-function Nav() {
+function Header() {
   
   const {
     setCurrentPage,
     linkPost,
     setLinkPosts,
     setIdentifier,
-    likedPosts,
-    setLikedPosts,
-    setIdElementDeleted,
     activePage,
     setActivePage
   } = useContext(Context)
@@ -44,25 +41,18 @@ function Nav() {
           </li>
         </ul>
       </div>
-      <ButtonLike
-        likedPosts={likedPosts}
-        setLikedPosts={setLikedPosts}
-        setIdElementDeleted={setIdElementDeleted}
-      />
+      <ButtonLike/>
     </nav>
   );
 }
 
-Nav.propTypes = {
+Header.propTypes = {
   setCurrentPage: PropTypes.func,
   linkPost:PropTypes.bool,
   setLinkPosts:PropTypes.func,
   setIdentifier: PropTypes.func,
-  likedPosts: PropTypes.array,
-  setLikedPosts: PropTypes.func,
-  setIdElementDeleted: PropTypes.func,
   activePage: PropTypes.string,
   setActivePage: PropTypes.func
 }
 
-export default withRouter(Nav);
+export default withRouter(Header);

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import  Context  from '../Context';
+import  Context  from '../../Context';
 import { useContext } from 'react';
 
-function Quantity() {
+function NumberOfVisibleElements() {
   
   const {
     setAmountPosts,
@@ -23,9 +23,9 @@ function Quantity() {
   );
 }
 
-Quantity.propTypes = {
+NumberOfVisibleElements.propTypes = {
   setAmountPosts: PropTypes.func,
   setCurrentPage: PropTypes.func
 }
 
-export default Quantity;
+export default NumberOfVisibleElements;

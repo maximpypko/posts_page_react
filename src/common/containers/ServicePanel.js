@@ -1,7 +1,7 @@
-import Form from "../components/Form";
+import Form from "../components/InputServicePanel";
 import Order from "../components/Order";
-import Quantity from "../components/Quantity";
-import View from "../components/View";
+import NumberOfVisibleElements from "../components/NumberOfVisibleElements";
+import PageViewSwitch from "../components/PageViewSwitch";
 
 const ServicePanel = () => {
 
@@ -11,8 +11,8 @@ const ServicePanel = () => {
         <div className="uk-margin-medium-bottom uk-flex">
           <Form/>
           <Order/>
-          <Quantity/>
-          <View/>
+          <NumberOfVisibleElements/>
+          <PageViewSwitch/>
         </div>
       </div>
     </div> 

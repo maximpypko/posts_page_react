@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
-import Nav from './Nav';
+import Header from '../../common/containers/Header';
 import AlbumItem from '../components/AlbumItem';
-import ButtonLoadMore from '../components/ButtonLoadMore';
-import ServicePanel from './ServicePanel';
-import PaginationList from "../components/PaginationList";
-import Context from '../Context';
-import Warning from '../components/Warning';
+import ButtonLoadMore from '../../common/components/ButtonLoadMore';
+import ServicePanel from '../../common/containers/ServicePanel';
+import PaginationList from "../../common/components/PaginationList";
+import Context from '../../Context';
+import WarningIfNoText from '../../common/components/WarningIfNoText';
 
 function AlbumsPage() {
 
@@ -15,7 +15,7 @@ function AlbumsPage() {
   return (
     <>
       <main className="uk-main">
-        <Nav />
+        <Header />
         <ServicePanel/>
         <div className="uk-section">
           <div className="uk-container uk-cover-container">  
@@ -28,7 +28,7 @@ function AlbumsPage() {
                     album={element}
                     /> 
                 }) :
-                  <Warning/>
+                  <WarningIfNoText/>
               }            
             </div>
           </div>

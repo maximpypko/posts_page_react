@@ -1,13 +1,13 @@
 import { useContext } from 'react';
-import Context from '../Context';
-import Nav from "./Nav";
-import ServicePanel from "./ServicePanel";
-import ButtonLoadMore from "../components/ButtonLoadMore";
-import PaginationList from "../components/PaginationList";
+import Context from '../../Context';
+import Header from "../../common/containers/Header";
+import ServicePanel from "../../common/containers/ServicePanel";
+import ButtonLoadMore from "../../common/components/ButtonLoadMore";
+import PaginationList from "../../common/components/PaginationList";
 import GridViewWithPictures from './GridViewWithPictures';
 import GridViewWithoutPictures from './GridViewWithoutPictures';
 
-export default function PostPage() {
+function PostPage() {
   
   const {
     posts,
@@ -18,7 +18,7 @@ export default function PostPage() {
 
   return (
     <main className="uk-main">
-      <Nav/>
+      <Header/>
       <ServicePanel />
       {
         isViewWithPictures ?
@@ -34,3 +34,4 @@ export default function PostPage() {
     </main>
   );
 }
+export default PostPage;

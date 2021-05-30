@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import {IdRequest}  from '../utils/enums';
-import  Context  from '../Context';
+import {IdRequest}  from '../../utils/enums';
+import  Context  from '../../Context';
 import { useContext } from 'react';
 
 function ButtonLoadMore() {

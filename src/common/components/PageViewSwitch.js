@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import  Context  from '../Context';
+import  Context  from '../../Context';
 import { useContext } from 'react';
-import { url }   from '../utils/enums';
+import { url }   from '../../utils/enums';
 
-function View() {
+function PageViewSwitch() {
   
   const {
     activePage,
@@ -32,10 +32,10 @@ function View() {
   );
 }
 
-View.propTypes = {
+PageViewSwitch.propTypes = {
   activePage: PropTypes.string,
   isViewWithPictures: PropTypes.bool,
   setIsViewWithPictures: PropTypes.func
 }
 
-export default View;
+export default PageViewSwitch;

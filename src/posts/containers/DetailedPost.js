@@ -1,20 +1,20 @@
 import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import Context  from '../Context';
-import Nav from './Nav';
-import ButtonBack from '../components/ButtonBack';
+import Context  from '../../Context';
+import Header from '../../common/containers/Header';
+import ButtonBack from '../../common/components/ButtonBack';
 import CommentForm from '../components/CommentForm';
 import Comment from '../components/Comment';
-import IfNoComment from '../components/IfNoComment';
+import WarningIfNoComment from '../../common/components/WarningIfNoComment';
 
-function Post() {
+function DetailedPost() {
 
   const { selectedPost } = useContext(Context);
   const [comments, setComments] = useState([]);
-
+  
   return (
     <>
-      <Nav />
+      <Header />
       <ButtonBack />
       <div className="uk-section">
         <div className="uk-container">
@@ -37,7 +37,7 @@ function Post() {
                     comment={comment} />
                 )
               }) :
-              <IfNoComment/>
+              <WarningIfNoComment/>
             }
           </div>
           <CommentForm
@@ -49,8 +49,8 @@ function Post() {
   );
 }
 
-Post.propTypes = {
+DetailedPost.propTypes = {
   selectedPost: PropTypes.object
 }
 
-export default Post
+export default DetailedPost;

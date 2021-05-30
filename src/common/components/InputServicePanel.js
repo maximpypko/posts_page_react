@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import { IdRequest } from '../utils/enums';
+import { IdRequest } from '../../utils/enums';
 import PropTypes from 'prop-types';
-import  Context  from '../Context';
+import  Context  from '../../Context';
 
-const Form = () => {
+const InputServicePanel = () => {
   
   const {
     formValue,
@@ -51,11 +51,11 @@ const Form = () => {
   );
 }
 
-Form.propTypes = {
+InputServicePanel.propTypes = {
   setInputValue: PropTypes.func,
   timeRequest: PropTypes.bool,
   setTimeRequest: PropTypes.func,
   setIdentifier: PropTypes.func
 }
 
-export default Form;
+export default InputServicePanel;

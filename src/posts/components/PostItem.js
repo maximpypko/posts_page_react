@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect, useRef, useContext } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import Context  from '../Context';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import Context  from '../../Context';
 
-function ListItem({element}) {
+function PostItem({element}) {
 
   const {
     setSelectedPost,
@@ -20,11 +20,11 @@ function ListItem({element}) {
   const activeLineClass =  isViewWithPictures ? '' : 'uk-heading-divider';
 
   const hendlerClickButtonHeart = () => {
- 
-    setLikedPosts([...likedPosts, element])
+
     setLikedPosts(() => {
-      const flag = likedPosts.find(post => post.id === id);
-      if (flag) {
+
+      const likedPost = likedPosts.find(post => post.id === id);
+      if (likedPost) {
         const newLikedPosts = likedPosts.filter(post => post.id !== id);
         return newLikedPosts
       }else {
@@ -76,7 +76,7 @@ function ListItem({element}) {
               to={`post/${id}`}
               className="uk-button uk-button-text"
               onClick={() => {
-              setSelectedPost(element)
+                setSelectedPost(element)
               }}>
               Read more
             </Link>
@@ -87,13 +87,12 @@ function ListItem({element}) {
   );
 }
 
-ListItem.propTypes = {
+PostItem.propTypes = {
   element: PropTypes.object,
   setTimeRequest: PropTypes.func,
   likedPosts: PropTypes.array,
   setLikedPosts: PropTypes.func,
-  idElementDeleted: PropTypes.number,
   isViewWithPictures: PropTypes.bool
 }
 
-export default withRouter(ListItem);
+export default React.memo(PostItem);
